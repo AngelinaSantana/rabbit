@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  rabbit1:
+    image: "rabbitmq:3-management"
+    hostname: rabbit1
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "unique_cookie_for_cluster"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    networks:
+      - rabbitnet
+    volumes:
+      - rabbit1_data:/var/lib/rabbitmq
+
+  rabbit2:
+    image: "rabbitmq:3-management"
+    hostname: rabbit2
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "unique_cookie_for_cluster"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_NODENAME: "rabbit@rabbit2"
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbit cluster_nodes {['rabbit@rabbit1','rabbit@rabbit2']}"
+    networks:
+      - rabbitnet
+    volumes:
+      - rabbit2_data:/var/lib/rabbitmq
+
+networks:
+  rabbitnet:
+
+volumes:
+  rabbit1_data:
+  rabbit2_data:

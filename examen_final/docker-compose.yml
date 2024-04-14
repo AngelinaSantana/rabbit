@@ -6,15 +6,15 @@ services:
     hostname: "rabbitmq1"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "joseph"
-      RABBITMQ_DEFAULT_PASS: "1192948"
+      RABBITMQ_DEFAULT_USER: "angelina"
+      RABBITMQ_DEFAULT_PASS: "2162012"
       RABBITMQ_NODENAME: "rabbit@rabbitmq1"
     ports:
       - "5673:5672" # Cambiar a 5673 o a otro puerto libre en el host
       - "15673:15672" # Cambiado de 15672 a 15673 para evitar conflictos
     volumes:
-      - "./data1:/var/lib/rabbitmq"
-      - "./log1:/var/log/rabbitmq"
+      - "./data1:/var/lib/rabbitmq:rw"
+      - "./log1:/var/log/rabbitmq:rw"
     networks:
       - mynetwork
 
@@ -23,12 +23,12 @@ services:
     hostname: "rabbitmq2"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "joseph"
-      RABBITMQ_DEFAULT_PASS: "1192948"
+      RABBITMQ_DEFAULT_USER: "angelina"
+      RABBITMQ_DEFAULT_PASS: "2162012"
       RABBITMQ_NODENAME: "rabbit@rabbitmq2"
     volumes:
-      - "./data2:/var/lib/rabbitmq"
-      - "./log2:/var/log/rabbitmq"
+      - "./data2:/var/lib/rabbitmq:rw"
+      - "./log2:/var/log/rabbitmq:rw"
     networks:
       - mynetwork
 

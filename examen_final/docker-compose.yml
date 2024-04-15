@@ -1,14 +1,6 @@
 version: '3'
-services:
-  app1:
-    build: ./app1
-    ports:
-      - "8081:8081"
-    depends_on:
-      - rabbitmq1
-    environment:
-      - RABBITMQ_URL=amqp://angelina:2162012@rabbitmq1:5672/
 
+services:
   rabbitmq1:
     image: "rabbitmq:3-management"
     hostname: "rabbitmq1"
@@ -18,8 +10,8 @@ services:
       RABBITMQ_DEFAULT_PASS: "2162012"
       RABBITMQ_NODENAME: "rabbit@rabbitmq1"
     ports:
-      - "5673:5672"
-      - "15673:15672"
+      - "5673:5672" # Cambiar a 5673 o a otro puerto libre en el host
+      - "15673:15672" # Cambiado de 15672 a 15673 para evitar conflictos
     volumes:
       - "./data1:/var/lib/rabbitmq"
       - "./log1:/var/log/rabbitmq"

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app2-deployment
-  namespace: actividad-semana-6
+  #namespace: actividad-semana-6
 spec:
   replicas: 1
   selector:

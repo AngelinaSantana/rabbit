@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"log"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/streadway/amqp"
 )
@@ -16,8 +18,8 @@ func main() {
 	}
 	defer conn.Close()
 
-	connString := "server=JosephAlmonte\\SQLEXPRESS;database=App3Db;trusted_connection=true"
-	db, err := sql.Open("sqlserver", connString)
+	connString := "angelina:2162012@tcp(localhost:3306)/appangelina"
+	db, err := sql.Open("mysql", connString)
 	if err != nil {
 		log.Fatal("Error al abrir la conexión a la base de datos: ", err.Error())
 	}
@@ -80,7 +82,7 @@ func consumeMessages(conn *amqp.Connection, db *sql.DB) {
 }
 
 func saveMessageToDB(db *sql.DB, message []byte) {
-	_, err := db.Exec("INSERT INTO Messages (Message) VALUES (@p1)", string(message))
+	_, err := db.Exec("INSERT INTO Mensaje (Message) VALUES (?)", string(message))
 	if err != nil {
 		log.Fatal("Error al insertar el mensaje en la base de datos: ", err)
 	}
